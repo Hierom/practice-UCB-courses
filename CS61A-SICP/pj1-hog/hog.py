@@ -80,6 +80,18 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     num_rolls:       The number of dice rolls that will be made.
     opponent_score:  The total score of the opponent.
     dice:            A function that simulates a single dice roll outcome.
+    >>> take_turn(2, 0, make_test_dice(4, 6, 1))
+    10
+    >>> take_turn(3, 0, make_test_dice(4, 6, 1))
+    1
+    >>> take_turn(0, 35)
+    4
+    >>> take_turn(0, 71)
+    8
+    >>> take_turn(0, 7)
+    9
+    >>> take_turn(0, 0)
+    2
     """
     # Leave these assert statements here; they help check for errors.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
@@ -87,7 +99,10 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return free_bacon(opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
 

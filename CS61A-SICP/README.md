@@ -1,6 +1,6 @@
 # CS61A-SICP
-The course of learning never run hard :D
+The course of learning never did run hard :D
 
-![Have fun!](figure/orange-mushroom-doctor.GIF | width=69))
+<img src="figure/orange-mushroom-doctor.GIF" width="69">
 
 

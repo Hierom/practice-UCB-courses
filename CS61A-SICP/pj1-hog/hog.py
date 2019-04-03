@@ -107,9 +107,43 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
 
 
 def is_swap(score0, score1):
-    """Return whether one of the scores is an integer multiple of the other."""
+    """Return whether one of the scores is an integer multiple of the other.
+    >>> is_swap(19, 91)
+    False
+    >>> is_swap(20, 40)
+    True
+    >>> is_swap(40, 20)
+    True
+    >>> is_swap(41, 14)
+    False
+    >>> is_swap(13, 32)
+    False
+    >>> is_swap(1, 0)
+    False
+    >>> is_swap(0, 1)
+    False
+    >>> is_swap(3, 0)
+    False
+    >>> is_swap(0, 3)
+    False
+    >>> is_swap(10, 1)
+    False
+    >>> is_swap(1, 10)
+    False
+    >>> is_swap(34, 17)
+    True
+    >>> is_swap(15, 30)
+    True
+    >>> is_swap(1, 30)
+    False
+    """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    if score0 < 2 or score1 <2:
+        return False
+    elif score0 % score1 == 0 or score1 % score0 == 0:
+        return True
+    else:
+        return False
     # END PROBLEM 4
 
 

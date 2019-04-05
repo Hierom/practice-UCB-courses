@@ -179,9 +179,46 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     dice:       A function of zero arguments that simulates a dice roll.
     goal:       The game ends and someone wins when this score is reached.
     say:        The commentary function to call at the end of the first turn.
+
+    >>> import hog
+    >>> always_three = hog.make_test_dice(3)
+    >>> always = hog.always_roll
+    #>>> #
+    #>>> # Play function stops at goal
+    #>>> s0, s1 = hog.play(always(5), always(3), score0=91, score1=10, dice=always_three)
+    #>>> s0
+    #106
+    #>>> s1
+    #10
+    >>> # Goal score is not hardwired
+    >>> s0, s1 = hog.play(always(5), always(5), goal=10, dice=always_three)
+    >>> s0
+    15
+    >>> s1
+    0
+    >>> # Use strategies
+    >>> # We recommend working this out turn-by-turn on a piece of paper.
+    >>> strat0 = lambda score, opponent: opponent % 10
+    >>> strat1 = lambda score, opponent: score // 10
+    >>> s0, s1 = hog.play(strat0, strat1, score0=41, score1=80, dice=always_three)
+    >>> s0 #(41+2+abs(8-0))
+    51
+    >>> s1 #(80+8*3)
+    104
     """
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
+    while score0 < goal and score1 < goal:
+        if player == 0:
+            num_rolls = strategy0(score0,score1)
+            score0 += take_turn(num_rolls, score1, dice)
+        else:
+            num_rolls = strategy1(score1,score0)
+            score1 += take_turn(num_rolls, score0, dice)
+
+        if is_swap(score0,score1):
+                score0, score1 = score1, score0
+        player = other(player)
     "*** YOUR CODE HERE ***"
     # END PROBLEM 5
     return score0, score1
